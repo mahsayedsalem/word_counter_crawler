@@ -1,3 +1,5 @@
+![Unit Tests](https://github.com/mahsayedsalem/word_counter_crawler/actions/workflows/test.yml/badge.svg)
+
 <h1 align="center">
   Words Counter Crawler
 </h1>
@@ -7,24 +9,36 @@
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#high-level-design">Design</a> •
+  <a href="#stack-decisions">Stack Decisions</a> •
   <a href="#documentation">Documentation</a> •
   <a href="#usage">Usage</a> •
   <a href="#testing">Testing</a> •
+  <a href="#continuous-integration">Continuous Integration</a> •
   <a href="#enhancements">Enhancements</a>
 </p>
 
 ## Key Features
 
-* Crawling - Crawl any website and count the occurrences of each word
-* Distributed - All the heavy work happens in the background by Celery Workers
-* Caching using Redis - We don't crawl the same website more than once during small interval
+* Crawling 🕸️ - Crawl any website and count the occurrences of each word.
+* Distributed  🚀 - All the heavy work happens in the background by Celery Workers.
+* Caching using Redis 🏪 - We don't crawl the same website more than once during small interval.
 
 ## High Level Design  
 
 <a href="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr"><img src="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
+## Stack Decisions 
+* FastAPI: Reliable async web server with built-in documentation.
+* Celery: Reliable Distributed Task Queue to make sure the solution is scalable when needed.
+* Separate the API from the Execution. This way we can scale our workers independently away from the APIs.
+* Use Caching to make sure not to scrap the same URL within small interval of time.
+* Use Redis to store the workers results since the default timeout is 24 hours, and we don't need to persist the word count for more than that since it's always changing.
+
 ## Documentation
-Visit `http://localhost:8000/docs` for Swagger Documentation
+```sh
+$ sh local_env_up.sh 
+```
+Then visit `http://localhost:8000/docs` for Swagger Documentation
 
 ## Usage
 
@@ -105,12 +119,12 @@ docker-compose exec worker pytest .
 docker-compose exec fastapi pytest .
 ```
 
-## CI/CD
+## Continuous Integration
 
 Basic CI is integrated to the repo using Github Actions to run test cases on PRs and Master merges.
 
 ## Enhancements
 
-* Smart Crawler -> Stream the text instead of downloading it.
+* Smart Crawler: Stream the text instead of downloading it.
 * Better Mocks in tests and better test coverage.
-* CD Action to publish the docker images to a docker registry.
+* Continuous Delivery Action to publish the docker images to a docker registry.
