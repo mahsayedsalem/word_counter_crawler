@@ -14,9 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Initialize Python 3.7
-          uses: actions/setup-python@v1
-          with:
-            python-version: 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
       - name: Build the stack
         run: docker-compose -f docker-compose.yml up --scale worker=2 --build -d
       - name: Install dependencies
