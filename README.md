@@ -29,6 +29,14 @@
 
 ![ScreenShot](/images/crawler_background.png)
 
+* Two endpoints `POST /crawl` and `GET /check_crawl_status/{task_id}`.
+* The user starts by calling `POST /crawl` with a URL.
+* We check if we've crawled this url in the past 30 seconds. If we did, we return the cached response to the user. A response will include `task_id` and `task_status`
+* Asynchronously, we send the request to a message broker (Redis). This message broker has two worker consumers consume the request from it. 
+* We can scale the workers numbers as much as our hardware can let us. It's distributed so we can easily scale vertically.
+* The workers process the request, store the result to redis and update the task_status.
+* The user calls `GET /check_crawl_status/{task_id}` to get the status of their crawl, if it was succeeded they will receive a response with the words count. 
+
 ## Stack Decisions 
 * FastAPI: Reliable async web server with built-in documentation.
 * Celery: Reliable Distributed Task Queue to make sure the solution is scalable when needed.
@@ -41,6 +49,8 @@
 $ sh local_env_up.sh 
 ```
 Then visit `http://localhost:8000/docs` for Swagger Documentation
+
+![ScreenShot](/images/swagger.png)
 
 ## Usage
 
