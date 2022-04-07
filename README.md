@@ -13,6 +13,7 @@
   <a href="#documentation">Documentation</a> •
   <a href="#usage">Usage</a> •
   <a href="#testing">Testing</a> •
+  <a href="#load-testing">Load Testing</a> •
   <a href="#continuous-integration">Continuous Integration</a> •
   <a href="#enhancements">Enhancements</a>
 </p>
@@ -111,13 +112,25 @@ GET 'localhost:8000/check_crawl_status/8b1766b4-6dc1-4f3d-bc6f-426066edc46f?sort
 
 ### Test the Worker
 ```sh
-docker-compose exec worker pytest .
+$ docker-compose exec worker pytest .
 ```
 
 ### Test the API
 ```sh
-docker-compose exec fastapi pytest .
+$ docker-compose exec fastapi pytest .
 ```
+
+## Load Testing
+I use `locust` for load testing. 
+```sh
+$ pip install locust 
+```
+
+```sh
+$ locust -f load_test.py 
+```
+ 
+<a href="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE"><img src="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
 ## Continuous Integration
 
