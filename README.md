@@ -136,6 +136,7 @@ $ locust -f load_test.py
 ## Tasks Monitoring
 Monitor the tasks and workers using Flower Dashboard `http://localhost:5555/dashboard`
 <a href="https://drive.google.com/uc?export=view&id=1rOlMVErs_sy2HseNJgR9TZ7bI_NSDPb2"><img src="https://drive.google.com/uc?export=view&id=1rOlMVErs_sy2HseNJgR9TZ7bI_NSDPb2" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+<a href="https://drive.google.com/uc?export=view&id=1CGbZtQa71KUqUUnbX4BKO3Dn4thpjvW6"><img src="https://drive.google.com/uc?export=view&id=1CGbZtQa71KUqUUnbX4BKO3Dn4thpjvW6" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
 
 
