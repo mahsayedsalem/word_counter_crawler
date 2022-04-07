@@ -26,13 +26,13 @@ jobs:
           pip install -r requirements_webapi.txt
       - name: Test Worker with pytest
         env:
-          REDISSERVER: "http://localhost:6379
+          REDISSERVER: "http://localhost:6379"
           C_FORCE_ROOT: "true"
         run: |
           pytest celery_tasks/
       - name: Test Fastapi with pytest
         env:
-          REDISSERVER: "http://localhost:6379
+          REDISSERVER: "http://localhost:6379"
           C_FORCE_ROOT: "true"
         run: |
           pytest api/
