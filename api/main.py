@@ -1,14 +1,31 @@
 import json
-from fastapi import FastAPI, Body, Response
+from fastapi import FastAPI, Response
+from typing import Optional, Dict
 from worker import celery_server
 from enum import Enum
 from fastapi_redis_cache import FastApiRedisCache, cache
 import os
+from pydantic import BaseModel
 
 
 class SortOptions(str, Enum):
     COUNT = "count"
     ALPHABETICALLY = "alphabetically"
+
+
+class CrawlRequest(BaseModel):
+    url: str
+
+
+class CrawlResponse(BaseModel):
+    id: str
+    url: str
+
+
+class CheckStatusResponse(BaseModel):
+    status: str
+    result: Optional[Dict[str, int]] = None
+    task_id: str
 
 
 app = FastAPI()
@@ -25,15 +42,15 @@ def startup():
     )
 
 
-@app.post("/crawl")
+@app.post("/crawl", response_model=CrawlResponse)
 @cache(expire=30)
-async def crawl(payload: dict = Body(...)):
+async def crawl(payload: CrawlRequest):
     task_name = "crawler.crawl"
-    task = celery_server.send_task(task_name, args=[payload["url"]])
-    return dict(id=task.id, url='localhost:8000/check_crawl_status/{}'.format(task.id))
+    task = celery_server.send_task(task_name, args=[payload.url])
+    return {"id": task.id, "url": 'localhost:8000/check_crawl_status/{}'.format(task.id)}
 
 
-@app.get("/check_crawl_status/{task_id}")
+@app.get("/check_crawl_status/{task_id}", response_model=CheckStatusResponse)
 async def check_task(task_id: str, sort: SortOptions = "count"):
     task = celery_server.AsyncResult(task_id)
     if task.state == 'SUCCESS':
