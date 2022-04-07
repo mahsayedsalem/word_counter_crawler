@@ -1,0 +1,4 @@
+celery
+redis
+BeautifulSoup4
+requests
