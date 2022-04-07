@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose -f docker-compose.yml up --scale worker=2 --build
+        run: docker-compose -f docker-compose.yml up --scale worker=2 --build -d
       - name: Test API
         run: docker-compose exec fastapi pytest .
       - name: Test Worker
