@@ -6,6 +6,7 @@ from enum import Enum
 from fastapi_redis_cache import FastApiRedisCache, cache
 import os
 from pydantic import BaseModel
+from celery import states
 
 
 class SortOptions(str, Enum):
@@ -43,7 +44,7 @@ def startup():
 
 
 @app.post("/crawl", response_model=CrawlResponse)
-@cache(expire=30)
+@cache(expire=86400)
 async def crawl(payload: CrawlRequest):
     task_name = "crawler.crawl"
     task = celery_server.send_task(task_name, args=[payload.url])
@@ -53,14 +54,14 @@ async def crawl(payload: CrawlRequest):
 @app.get("/check_crawl_status/{task_id}", response_model=CheckStatusResponse)
 async def check_task(task_id: str, sort: SortOptions = "count"):
     task = celery_server.AsyncResult(task_id)
-    if task.state == 'SUCCESS':
+    if task.state == states.SUCCESS:
         sorted_words = await sort_words(sort, task.result)
         response = {
             'status': task.state,
             'result': sorted_words,
             'task_id': task_id
         }
-    elif task.state == 'FAILURE':
+    elif task.state == states.FAILURE:
         response = json.loads(task.backend.get(task.backend.get_key_for_task(task.id)).decode('utf-8'))
         del response['children']
         del response['traceback']

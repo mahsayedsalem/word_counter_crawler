@@ -31,7 +31,7 @@
 
 * Two endpoints `POST /crawl` and `GET /check_crawl_status/{task_id}`.
 * The user starts by calling `POST /crawl` with a URL.
-* We check if we've crawled this url in the past 30 seconds. If we did, we return the cached response to the user. A response will include `task_id` and `task_status`
+* We check if we've crawled this url in the past hour. If we did, we return the cached response to the user. A response will include `task_id` and `task_status`
 * Asynchronously, we send the request to a message broker (Redis). This message broker has two worker consumers consume the request from it. 
 * We can scale the workers numbers as much as our hardware can let us. It's distributed so we can easily scale vertically.
 * The workers process the request, store the result to redis and update the task_status.
@@ -41,7 +41,7 @@
 * FastAPI: Reliable async web server with built-in documentation.
 * Celery: Reliable Distributed Task Queue to make sure the solution is scalable when needed.
 * Separate the API from the Execution. This way we can scale our workers independently away from the APIs.
-* Use Caching to make sure not to scrap the same URL within small interval of time.
+* Use Caching to make sure not to scrap the same URL within small interval of time (1 hour).
 * Use Redis to store the workers results since the default timeout is 24 hours, and we don't need to persist the word count for more than that since it's always changing.
 
 ## Documentation

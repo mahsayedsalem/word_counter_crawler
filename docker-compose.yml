@@ -3,8 +3,8 @@ version: "3.7"
 services:
   fastapi:
     build:
-      context: .
-      dockerfile: DockerfileWebApi
+      dockerfile: Dockerfile
+      context: ./api
     environment:
       REDISSERVER: redis://redis_server:6379
       C_FORCE_ROOT: "true"
@@ -12,10 +12,11 @@ services:
       - "8000:80"
     depends_on:
       - redis_server
+
   worker:
     build:
-      dockerfile: DockerfileCelery
-      context: .
+      dockerfile: Dockerfile
+      context: ./celery_tasks
     environment:
       REDISSERVER: redis://redis_server:6379
       C_FORCE_ROOT: "true"

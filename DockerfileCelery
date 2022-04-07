@@ -1,9 +1,0 @@
-FROM python:3.6
-
-COPY requirements_celery.txt /requirements.txt
-RUN pip install -r /requirements.txt
-
-COPY ./celery_tasks /celery_tasks
-WORKDIR /celery_tasks
-
-ENTRYPOINT celery -A tasks worker --loglevel=info
