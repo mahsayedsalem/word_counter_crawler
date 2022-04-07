@@ -8,12 +8,33 @@ on:
 
 jobs:
   test:
+    name: "Python ${{ matrix.python-version }}"
     runs-on: ubuntu-latest
+    env:
+      USING_COVERAGE: '3.6,3.8'
+    strategy:
+      matrix:
+        python-version: [ "3.6", "3.7", "3.8", "pypy3" ]
+
     steps:
       - uses: actions/checkout@v2
+      - name: Initialize Python 3.7
+          uses: actions/setup-python@v1
+          with:
+            python-version: 3.7
       - name: Build the stack
         run: docker-compose -f docker-compose.yml up --scale worker=2 --build -d
-      - name: Test API
-        run: docker-compose exec fastapi pytest .
-      - name: Test Worker
-        run: docker-compose exec worker pytest .
+      - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements_celery.txt
+            pip install -r requirements_webapi.txt
+      - name: Test Worker with pytest
+        env:
+         REDISSERVER: redis://redis_server:6379
+         C_FORCE_ROOT: "true"
+        run: |
+          pytest celery_tasks/
+      - name: Stop containers
+        if: always()
+        run: docker-compose down
