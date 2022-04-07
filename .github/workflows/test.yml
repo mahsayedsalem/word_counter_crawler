@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  name: python test
   test:
-    name: "Python ${{ matrix.python-version }}"
+    name: "Python test"
     runs-on: ubuntu-latest
 
     steps:
