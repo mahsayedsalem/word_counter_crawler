@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: "Python ${{ matrix.python-version }}"
+    name: "Python test"
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,12 @@ jobs:
           C_FORCE_ROOT: "true"
         run: |
           pytest celery_tasks/
+      - name: Test API with pytest
+        env:
+          REDISSERVER: "http://localhost:6379"
+          C_FORCE_ROOT: "true"
+        run: |
+          pytest api/
       - name: Stop containers
         if: always()
         run: docker-compose down
