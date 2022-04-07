@@ -7,6 +7,7 @@
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#high-level-design">Design</a> •
+  <a href="#documentation">Documentation</a> •
   <a href="#usage">Usage</a> •
   <a href="#testing">Testing</a> •
   <a href="#enhancements">Enhancements</a>
@@ -22,6 +23,9 @@
 
 <a href="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr"><img src="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
+## Documentation
+Visit `http://localhost:8000/docs` for Swagger Documentation
+
 ## Usage
 
 ### Start the services
@@ -29,13 +33,16 @@
 $ sh local_env_up.sh 
 ```
 
+### Content of local_env_up.sh
+```sh
+$ sudo docker-compose -f docker-compose.yml up --scale worker=2 --build
+```
+
 ### Stop the services
 
 ```sh
 $ sh local_env_down.sh 
 ```
-
-### Visit `http://localhost:8000/docs` for Swagger Documentation
 
 ### POST a Crawl Request
 
@@ -88,9 +95,17 @@ GET 'localhost:8000/check_crawl_status/8b1766b4-6dc1-4f3d-bc6f-426066edc46f?sort
 
 ## Testing
 
+### Test the Worker
 ```sh
+docker-compose exec worker pytest .
+```
+
+### Test the API
+```sh
+docker-compose exec fastapi pytest .
 ```
 
 ## Enhancements
 
-* Smart Crawler -> Stream the text instead of downloading it. 
+* Smart Crawler -> Stream the text instead of downloading it.
+* Better Mocks in tests and better test coverage.

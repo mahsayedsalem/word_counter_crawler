@@ -8,7 +8,7 @@ from worker import celery_server
 @celery_server.task(name='crawler.crawl', bind=True)
 def crawl(self, url):
     try:
-        self.update_state(state="PROGRESS")
+        self.update_state(state=states.STARTED)
         words = Crawler(url).crawl()
         return words
     except Exception as ex:

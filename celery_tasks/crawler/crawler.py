@@ -31,7 +31,7 @@ class Crawler:
     def get_all_words(text):
         word_list = []
         for each_text in text:
-            content = each_text.text
+            content = each_text
             words = content.lower().split()
             for each_word in words:
                 word_list.append(each_word)
