@@ -10,11 +10,6 @@ jobs:
   test:
     name: "Python ${{ matrix.python-version }}"
     runs-on: ubuntu-latest
-    env:
-      USING_COVERAGE: '3.6,3.8'
-    strategy:
-      matrix:
-        python-version: [ "3.6", "3.7", "3.8", "pypy3" ]
 
     steps:
       - uses: actions/checkout@v2
@@ -31,8 +26,8 @@ jobs:
             pip install -r requirements_webapi.txt
       - name: Test Worker with pytest
         env:
-         REDISSERVER: redis://redis_server:6379
-         C_FORCE_ROOT: "true"
+          REDISSERVER: redis://redis_server:6379
+          C_FORCE_ROOT: "true"
         run: |
           pytest celery_tasks/
       - name: Stop containers
