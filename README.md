@@ -131,15 +131,15 @@ $ pip install locust
 $ locust -f load_test.py 
 ```
 
-![ScreenShot](/images/Screenshot 2022-04-07 at 13.07.19.png)
+![ScreenShot](/images/locust.png)
 
 ## Tasks Monitoring
 
 Monitor the tasks and workers using Flower Dashboard from `http://localhost:5555/dashboard`
 
-![ScreenShot](/images/Screenshot 2022-04-07 at 14.24.26.png)
+![ScreenShot](/images/flower1.png)
 
-![ScreenShot](/images/Screenshot 2022-04-07 at 14.28.01.png)
+![ScreenShot](/images/flower2.png)
 
 ## Continuous Integration
 
