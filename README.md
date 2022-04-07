@@ -27,7 +27,7 @@
 
 ## High Level Design  
 
-<a href="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr"><img src="https://drive.google.com/uc?export=view&id=1pD8ZDYwSfn5qxjM-SXPljWHEZHqzS-Hr" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+![ScreenShot](/images/crawler_background.png)
 
 ## Stack Decisions 
 * FastAPI: Reliable async web server with built-in documentation.
@@ -131,11 +131,14 @@ $ pip install locust
 $ locust -f load_test.py 
 ```
  
-<a href="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE"><img src="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+<a href="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE"><img src="https://drive.google.com/uc?export=view&id=1vhiYi7gwIr5mHn3c_-DKY1fl2CqhnwtE" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" /></a>
 
 ## Tasks Monitoring
-Monitor the tasks and workers using Flower Dashboard `http://localhost:5555/dashboard`
+
+Monitor the tasks and workers using Flower Dashboard from `http://localhost:5555/dashboard`
+
 <a href="https://drive.google.com/uc?export=view&id=1rOlMVErs_sy2HseNJgR9TZ7bI_NSDPb2"><img src="https://drive.google.com/uc?export=view&id=1rOlMVErs_sy2HseNJgR9TZ7bI_NSDPb2" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+
 <a href="https://drive.google.com/uc?export=view&id=1CGbZtQa71KUqUUnbX4BKO3Dn4thpjvW6"><img src="https://drive.google.com/uc?export=view&id=1CGbZtQa71KUqUUnbX4BKO3Dn4thpjvW6" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
 
