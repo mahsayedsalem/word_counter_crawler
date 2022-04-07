@@ -23,6 +23,8 @@ wheels/
 share/python-wheels/
 *.egg-info/
 *.idea/
+.idea/
+.pytest_cache/
 .installed.cfg
 *.egg
 MANIFEST

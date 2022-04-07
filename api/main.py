@@ -63,8 +63,8 @@ async def check_task(task_id: str, sort: SortOptions = "count"):
         }
     elif task.state == states.FAILURE:
         response = json.loads(task.backend.get(task.backend.get_key_for_task(task.id)).decode('utf-8'))
-        del response['children']
-        del response['traceback']
+        response.pop("children", None)
+        response.pop("traceback", None)
     else:
         response = {
             'status': task.state,
@@ -78,9 +78,9 @@ def health():
     return "OK"
 
 
-async def sort_words(sort_option, words):
+async def sort_words(sort_option: str, words: dict) -> dict:
     sorted_dict = {}
-    if sort_option == "count":
+    if sort_option == SortOptions.COUNT:
         sorted_keys = sorted(words, key=words.get, reverse=True)
     else:
         sorted_keys = sorted(words.keys(), key=lambda x: x.lower())
