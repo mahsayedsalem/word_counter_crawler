@@ -105,7 +105,12 @@ docker-compose exec worker pytest .
 docker-compose exec fastapi pytest .
 ```
 
+## CI/CD
+
+Basic CI is integrated to the repo using Github Actions to run test cases on PRs and Master merges.
+
 ## Enhancements
 
 * Smart Crawler -> Stream the text instead of downloading it.
 * Better Mocks in tests and better test coverage.
+* CD Action to publish the docker images to a docker registry.
