@@ -27,7 +27,7 @@
 
 ## High Level Design  
 
-![ScreenShot](/images/crawler_background.png)
+![ScreenShot](/images/crawler_design.png)
 
 * Two endpoints `POST /crawl` and `GET /check_crawl_status/{task_id}`.
 * The user starts by calling `POST /crawl` with a URL.
